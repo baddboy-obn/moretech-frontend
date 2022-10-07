@@ -1,0 +1,23 @@
+.themed-popup {
+  background-color: var(--whiteC100);
+}
+
+.ant-select-item-option-active {
+  background-color: var(--whiteC200) !important;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--whiteC200) !important;
+}
+
+.ant-tabs {
+  color: var(--text-COMMON_TEXT);
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--accent-PRIMARY) !important;
+}
+
+.ant-tabs-top > .ant-tabs-nav::before, .ant-tabs-bottom > .ant-tabs-nav::before, .ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before {
+  border-bottom-color: var(--whiteC900);
+}
