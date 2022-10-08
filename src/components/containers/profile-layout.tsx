@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import styled from '@emotion/styled';
 import { Header } from '../layout/header';
 import { Button, Layout } from 'antd';
@@ -10,6 +10,7 @@ import { ListPane } from '../common/list-pane';
 import { Paths } from '../../utils/routes/paths';
 import { Promo } from '../profile/promo';
 import { PlusOutlined } from '@ant-design/icons';
+import { SendCongrats } from '../../modals/send-congrats';
 
 const AppWrapper = styled(Layout)`
   width: 100vw;
@@ -26,6 +27,8 @@ const SiderStyled = styled(Sider)`
 
 export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
   const theme = useCurrentTheme();
+
+  const [visible, setVisible] = useState(true);
 
   return (
     <AppWrapper>
@@ -146,6 +149,7 @@ export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
           />
         </SiderStyled>
       </Layout>
+      <SendCongrats visible={visible} setVisible={setVisible} />
     </AppWrapper>
   );
 };

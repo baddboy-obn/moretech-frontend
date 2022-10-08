@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppService } from './utils/services';
 import { RootRoutes } from './utils/routes';
+import 'moment/locale/ru';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
