@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { MainLayout } from '../../components/containers/main-layout';
+import { ProfileLayout } from '../../components/containers/profile-layout';
 import { Paths } from './paths';
 import { Login } from '../../pages/login';
+import { Home } from '../../pages';
 
 export const RootRoutes: FC = () => {
   return (
@@ -11,11 +12,11 @@ export const RootRoutes: FC = () => {
       <Route
         path={'*'}
         element={
-          <MainLayout>
+          <ProfileLayout>
             <Routes>
-              <Route path={Paths.BASE} element={<span>as</span>} />
+              <Route path={Paths.BASE} element={<Home />} />
             </Routes>
-          </MainLayout>
+          </ProfileLayout>
         }
       />
     </Routes>
