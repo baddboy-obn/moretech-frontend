@@ -26,6 +26,7 @@ import nft_5_1 from '../../../mocks/nft-examples/5_1.png';
 import nft_5_2 from '../../../mocks/nft-examples/5_2.png';
 import nft_5_3 from '../../../mocks/nft-examples/5_3.png';
 import nft_5_4 from '../../../mocks/nft-examples/5_4.png';
+import { useCurrentTheme } from '../../../utils/services/ThemeService';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -244,6 +245,8 @@ const NFTList: IProductCard[] = [
 ];
 
 export const Products: FC = () => {
+  const theme = useCurrentTheme();
+
   const tabItems = [
     {
       label: 'NFT',
@@ -251,7 +254,7 @@ export const Products: FC = () => {
       children: (
         <ProductsWrapper>
           {NFTList.map((nft) => (
-            <ProductCard {...nft} key={nft.id} />
+            <ProductCard {...nft} key={nft.id} theme={theme} />
           ))}
         </ProductsWrapper>
       ),

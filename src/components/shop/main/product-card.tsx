@@ -5,6 +5,7 @@ import { Rarity, rarityToText } from '../../../utils/rarity/';
 import { Image, Typography } from 'antd';
 import { PricePane } from '../../common/balance-pane';
 import { Theme } from '@emotion/react';
+import { EyeOutlined } from '@ant-design/icons';
 
 const getColorByRarity: (rarity: Rarity, theme: Theme) => string = (
   rarity: Rarity,
@@ -77,14 +78,34 @@ const RarityMarker = styled('div')<{ rarity: Rarity }>`
       : theme.COLORS.WHITE.C100};
   padding: 2px 6px;
   border-radius: ${Sizes.BORDER_RADIUS_SM};
+  font-size: 10px;
 `;
 
-export const ProductCard: FC<IProductCard> = ({
+const ViesMarker = styled('div')`
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  gap: 4px;
+  color: ${({ theme }) => theme.COLORS.TEXT.COMMON_TEXT};
+`;
+
+interface Props extends IProductCard {
+  theme: Theme;
+}
+
+export const ProductCard: FC<Props> = ({
   provider,
   rarity,
   price,
   imageUrl,
   title,
+  theme,
+  views,
 }) => {
   return (
     <Wrapper>
@@ -98,7 +119,13 @@ export const ProductCard: FC<IProductCard> = ({
             alignItems: 'center',
           }}
         >
-          <PricePane balance={price} />
+          <PricePane
+            style={{
+              padding: '2px 6px',
+              color: theme.COLORS.ACCENT.PRIMARY,
+            }}
+            balance={price}
+          />
           <div
             style={{
               display: 'flex',
@@ -114,7 +141,7 @@ export const ProductCard: FC<IProductCard> = ({
             <Typography.Text
               strong
               style={{
-                color: 'white',
+                color: theme.COLORS.WHITE.C100,
               }}
             >
               {provider}
@@ -122,6 +149,10 @@ export const ProductCard: FC<IProductCard> = ({
           </div>
         </div>
       </DescriptionWrapper>
+      <ViesMarker>
+        {views.toLocaleString('ru-RU')}
+        <EyeOutlined />
+      </ViesMarker>
     </Wrapper>
   );
 };
