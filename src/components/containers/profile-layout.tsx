@@ -12,7 +12,7 @@ import { Promo } from '../profile/promo';
 import { PlusOutlined } from '@ant-design/icons';
 import { SendCongrats } from '../../modals/send-congrats';
 
-const AppWrapper = styled(Layout)`
+export const AppWrapper = styled(Layout)`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -28,7 +28,7 @@ const SiderStyled = styled(Sider)`
 export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
   const theme = useCurrentTheme();
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   return (
     <AppWrapper>

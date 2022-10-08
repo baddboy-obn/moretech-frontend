@@ -37,6 +37,8 @@ export const ProfileSideCard: FC = () => {
           style={{
             width: '100%',
           }}
+          type={'primary'}
+          ghost
         >
           В магазин
         </Button>

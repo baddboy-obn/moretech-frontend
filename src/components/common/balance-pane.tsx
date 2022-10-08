@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 import { Typography } from 'antd';
@@ -32,15 +32,30 @@ interface Props {
   text: string;
 }
 
+interface PriceProps {
+  balance: number;
+  prefix?: string;
+  style?: CSSProperties;
+}
+
+export const PricePane: FC<PriceProps> = ({ balance, prefix, style }) => {
+  return (
+    <BalanceWrap style={style}>
+      <Typography.Text>
+        {prefix ? `${prefix} ` : ''}
+        {balance.toLocaleString('ru-RU')}
+      </Typography.Text>
+      <SketchOutlined />
+    </BalanceWrap>
+  );
+};
+
 export const BalancePane: FC<Props> = ({ linkUrl, balance, text }) => {
   return (
     <Wrapper to={linkUrl}>
       <Typography.Text strong>{text}</Typography.Text>
       <RightSide>
-        <BalanceWrap>
-          <Typography.Text>{balance.toLocaleString('ru-RU')}</Typography.Text>
-          <SketchOutlined />
-        </BalanceWrap>
+        <PricePane balance={balance} />
         <RightOutlined />
       </RightSide>
     </Wrapper>
