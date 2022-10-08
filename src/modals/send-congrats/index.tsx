@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Input, InputNumber, Modal, Space, Typography } from 'antd';
+import { Input, InputNumber, Modal, Space, Typography, Image } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { IUserCongrats, UserCard } from './user-card';
@@ -8,6 +8,8 @@ import { useCurrentTheme } from '../../utils/services/ThemeService';
 import avatar1 from '../../mocks/team/Avatar.jpg';
 import avatar2 from '../../mocks/team/Avatar-1.jpg';
 import avatar3 from '../../mocks/team/Avatar-2.jpg';
+
+import congratsBg from '../../resources/congrats-bg.png';
 
 const { TextArea } = Input;
 
@@ -94,49 +96,61 @@ export const SendCongrats: FC<Props> = ({ visible, setVisible }) => {
             ))}
           </Space>
         </Space>
-        <Space
-          direction={'vertical'}
-          wrap
-          size={[0, 8]}
-          style={{
-            alignItems: 'flex-start',
-          }}
-        >
-          <Typography.Text>
-            Сумма для перечисления на общий счёт
-          </Typography.Text>
-          <Space align={'center'} size={[8, 0]} direction={'horizontal'}>
-            <InputNumber min={1} max={4201} placeholder={'10'} />
-            <Typography.Text
+        <Space direction={'horizontal'} size={[18, 0]}>
+          <Space direction={'vertical'} size={[0, 20]}>
+            <Space
+              direction={'vertical'}
+              wrap
+              size={[0, 8]}
               style={{
-                color: theme.COLORS.TEXT.DISABLED,
-                fontSize: 10,
+                alignItems: 'flex-start',
               }}
             >
-              У вас 4201 алмазов
-            </Typography.Text>
+              <Typography.Text>
+                Сумма для перечисления на общий счёт
+              </Typography.Text>
+              <Space align={'center'} size={[8, 0]} direction={'horizontal'}>
+                <InputNumber min={1} max={4201} placeholder={'10'} />
+                <Typography.Text
+                  style={{
+                    color: theme.COLORS.TEXT.DISABLED,
+                    fontSize: 10,
+                  }}
+                >
+                  У вас 4201 алмазов
+                </Typography.Text>
+              </Space>
+            </Space>
+            <Space
+              direction={'vertical'}
+              wrap
+              size={[0, 8]}
+              style={{
+                alignItems: 'flex-start',
+              }}
+            >
+              <Typography.Text>Поздравление</Typography.Text>
+              <TextArea
+                maxLength={200}
+                showCount
+                autoSize={{
+                  minRows: 2,
+                  maxRows: 4,
+                }}
+                style={{
+                  width: 320,
+                }}
+                placeholder={'Например, с Днём варения, любимая Особа...'}
+              />
+            </Space>
           </Space>
-        </Space>
-        <Space
-          direction={'vertical'}
-          wrap
-          size={[0, 8]}
-          style={{
-            alignItems: 'flex-start',
-          }}
-        >
-          <Typography.Text>Поздравление</Typography.Text>
-          <TextArea
-            maxLength={200}
-            showCount
-            autoSize={{
-              minRows: 2,
-              maxRows: 4,
-            }}
+          <Image
+            preview={false}
+            src={congratsBg}
             style={{
-              width: 320,
+              width: 194,
+              height: 194,
             }}
-            placeholder={'Например, с Днём варения, любимая Особа...'}
           />
         </Space>
       </Space>
