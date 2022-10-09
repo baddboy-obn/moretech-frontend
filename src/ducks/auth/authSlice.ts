@@ -104,6 +104,7 @@ const authSlice = createSlice({
       state.person = undefined;
       state.type = undefined;
       state.my_target = undefined;
+      localStorage.clear();
     },
     setTarget(
       state,
