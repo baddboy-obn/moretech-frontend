@@ -6,6 +6,7 @@ import { UserOutlined } from '@ant-design/icons';
 interface Props {
   image?: string;
   name: string;
+  size?: number;
 }
 
 const Wrapper = styled('div')`
@@ -20,10 +21,10 @@ const Name = styled('span')`
   line-height: 22px;
 `;
 
-export const UserCard: FC<Props> = ({ image, name }) => {
+export const UserCard: FC<Props> = ({ image, name, size }) => {
   return (
     <Wrapper>
-      <Avatar size={32} icon={<UserOutlined />} src={image} />
+      <Avatar size={size ? size : 32} icon={<UserOutlined />} src={image} />
       <Name>{name}</Name>
     </Wrapper>
   );

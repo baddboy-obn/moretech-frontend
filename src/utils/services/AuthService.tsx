@@ -1,11 +1,15 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useEffect } from 'react';
+import { useAuthState } from '../../ducks/auth/authSlice';
+import { Paths } from '../routes/paths';
 
 export const AuthService: FC<PropsWithChildren> = ({ children }) => {
-  // useEffect(() => {
-  //   webAPI.personMethods.getPersons().then((r) => {
-  //     console.log(r);
-  //   });
-  // }, []);
+  const { authed } = useAuthState();
+
+  useEffect(() => {
+    if (!authed && window.location.pathname !== Paths.LOGIN) {
+      window.location.pathname = Paths.LOGIN;
+    }
+  }, [authed]);
 
   return <>{children}</>;
 };

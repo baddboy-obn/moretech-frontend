@@ -5,6 +5,7 @@ import { Sizes } from '../../styles';
 import { useCurrentTheme } from '../../utils/services/ThemeService';
 import { NavLink } from 'react-router-dom';
 import { Paths } from '../../utils/routes/paths';
+import { useAuthState } from '../../ducks/auth/authSlice';
 
 const Wrapper = styled(Space)`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -17,6 +18,11 @@ const Wrapper = styled(Space)`
 
 export const MainInfo: FC = () => {
   const theme = useCurrentTheme();
+  const { data, authed, person } = useAuthState();
+
+  if (!authed || !data || !person) {
+    return null;
+  }
 
   return (
     <Wrapper size={[0, 24]} direction={'vertical'}>
@@ -27,11 +33,9 @@ export const MainInfo: FC = () => {
           }}
           level={3}
         >
-          Тимур Новый
+          {data.name} {data.lastname}
         </Typography.Title>
-        <Typography.Text>
-          Старший разработчик информационных систем
-        </Typography.Text>
+        <Typography.Text>{data.position}</Typography.Text>
       </Space>
       <Space size={[0, 12]} direction={'vertical'}>
         <Typography.Title
@@ -66,7 +70,7 @@ export const MainInfo: FC = () => {
                 color: theme.COLORS.ACCENT.PRIMARY,
               }}
             >
-              WEB разработка
+              {data.department}
             </Typography.Text>
           </NavLink>
         </Space>
@@ -84,7 +88,7 @@ export const MainInfo: FC = () => {
                 color: theme.COLORS.ACCENT.PRIMARY,
               }}
             >
-              Максим Башкардинов
+              {data.mentor}
             </Typography.Text>
           </NavLink>
         </Space>
@@ -102,7 +106,7 @@ export const MainInfo: FC = () => {
                 color: theme.COLORS.ACCENT.PRIMARY,
               }}
             >
-              Константин Ефимов
+              {data.manager}
             </Typography.Text>
           </NavLink>
         </Space>
@@ -134,7 +138,7 @@ export const MainInfo: FC = () => {
           >
             О себе
           </Typography.Text>
-          <Typography.Text>Филантроп, меценат</Typography.Text>
+          <Typography.Text>{person.about}</Typography.Text>
         </Space>
       </Space>
     </Wrapper>

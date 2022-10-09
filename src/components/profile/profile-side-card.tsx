@@ -6,8 +6,7 @@ import { BalancePane } from '../common/balance-pane';
 import { Paths } from '../../utils/routes/paths';
 import { GoalMarker } from '../common/goal-marker';
 import { NavLink } from 'react-router-dom';
-
-import mainUserMockImage from '../../mocks/images/main-user.jpg';
+import { useAuthState } from '../../ducks/auth/authSlice';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -27,22 +26,32 @@ const ImageStyled = styled(Image)`
 `;
 
 export const ProfileSideCard: FC = () => {
+  const { data, authed, person } = useAuthState();
+
   return (
     <Wrapper>
-      <ImageStyled src={mainUserMockImage} />
-      <BalancePane linkUrl={Paths.BALANCE} balance={4201} text={'Мой баланс'} />
-      <GoalMarker current={4201} max={8000} text={'Коплю на мечту'} />
-      <NavLink to={Paths.SHOP}>
-        <Button
-          style={{
-            width: '100%',
-          }}
-          type={'primary'}
-          ghost
-        >
-          В магазин
-        </Button>
-      </NavLink>
+      {authed && data && person && (
+        <>
+          <ImageStyled src={person.avatar} />
+          <BalancePane
+            linkUrl={Paths.BALANCE}
+            balance={4201}
+            text={'Мой баланс'}
+          />
+          <GoalMarker current={4201} max={8000} text={'Коплю на мечту'} />
+          <NavLink to={Paths.SHOP}>
+            <Button
+              style={{
+                width: '100%',
+              }}
+              type={'primary'}
+              ghost
+            >
+              В магазин
+            </Button>
+          </NavLink>
+        </>
+      )}
     </Wrapper>
   );
 };

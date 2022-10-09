@@ -6,20 +6,24 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { AppService } from './utils/services';
 import { RootRoutes } from './utils/routes';
 import 'moment/locale/ru';
-
-const container = document.getElementById('root')!;
-const root = createRoot(container);
+import ru from 'antd/lib/locale/ru_RU';
+import { ConfigProvider } from 'antd';
 
 import 'antd/dist/antd.less';
 import './index.scss';
+
+const container = document.getElementById('root')!;
+const root = createRoot(container);
 
 root.render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistedStore} loading={null}>
-        <AppService>
-          <RootRoutes />
-        </AppService>
+        <ConfigProvider locale={ru}>
+          <AppService>
+            <RootRoutes />
+          </AppService>
+        </ConfigProvider>
       </PersistGate>
     </Provider>
   </StrictMode>
