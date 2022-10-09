@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { CommonLayout } from '../components/containers/common-layout';
 import { useParams } from 'react-router-dom';
 import { NFTList } from '../components/shop/main/products';
@@ -15,6 +15,8 @@ const Wrapper = styled('div')`
 `;
 
 export const ShopPage: FC = () => {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
   const dispatch = useAppDispatch();
 
   const params = useParams<{
@@ -43,12 +45,12 @@ export const ShopPage: FC = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    wrapperRef.current?.parentElement?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [params.elementId]);
 
   return (
     <CommonLayout>
-      <Wrapper>
+      <Wrapper ref={wrapperRef}>
         <LeftSide
           otherProducts={otherProducts}
           price={myProduct.price}
