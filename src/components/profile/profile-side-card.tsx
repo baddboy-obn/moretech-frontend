@@ -7,6 +7,7 @@ import { Paths } from '../../utils/routes/paths';
 import { GoalMarker } from '../common/goal-marker';
 import { NavLink } from 'react-router-dom';
 import { useAuthState } from '../../ducks/auth/authSlice';
+import { UserCard } from '../common/user-card';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -25,8 +26,16 @@ const ImageStyled = styled(Image)`
   overflow: hidden;
 `;
 
+const TargetWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  gap: 4px;
+`;
+
 export const ProfileSideCard: FC = () => {
   const { data, authed, person } = useAuthState();
+  const { my_target } = useAuthState();
 
   return (
     <Wrapper>
@@ -38,7 +47,21 @@ export const ProfileSideCard: FC = () => {
             balance={4201}
             text={'Мой баланс'}
           />
-          <GoalMarker current={4201} max={8000} text={'Коплю на мечту'} />
+          {my_target && (
+            <TargetWrapper>
+              <GoalMarker
+                current={my_target.current_units}
+                max={my_target.target.price}
+                text={`Коплю на ${my_target.target.title}`}
+              />
+              <NavLink to={`${my_target.target.link}/${my_target.target.id}`}>
+                <UserCard
+                  name={'На страницу товара'}
+                  image={my_target.target.imageUrl}
+                />
+              </NavLink>
+            </TargetWrapper>
+          )}
           <NavLink to={Paths.SHOP}>
             <Button
               style={{

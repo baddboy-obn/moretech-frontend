@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useAppSelector } from '../index';
 import { BaseUser, IUserKey } from '../../api/person';
+import { IProductCard } from '../../components/shop/main/product-card';
 
 import image_1 from '../../mocks/team/telegram-peer-photo-size-2-792175081474336683-1-0-0 1.png';
 import image_2 from '../../mocks/team/telegram-peer-photo-size-2-1187421972329506743-1-0-0 1.png';
@@ -19,6 +20,12 @@ type InitialType =
       person: BaseUser['personal'];
       type: IUserKey;
       otherUsers: IOtherUser[];
+      my_target:
+        | {
+            current_units: number;
+            target: IProductCard;
+          }
+        | undefined;
     }
   | {
       publicKey: undefined;
@@ -28,6 +35,7 @@ type InitialType =
       person: undefined;
       type: undefined;
       otherUsers: [];
+      my_target: undefined;
     };
 
 const initialState: InitialType = {
@@ -38,6 +46,7 @@ const initialState: InitialType = {
   person: undefined,
   type: undefined,
   otherUsers: [],
+  my_target: undefined,
 };
 
 const getTeamImageByName = (name: string, defaultImage: string) => {
@@ -94,11 +103,29 @@ const authSlice = createSlice({
       state.data = undefined;
       state.person = undefined;
       state.type = undefined;
+      state.my_target = undefined;
+    },
+    setTarget(
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        units: number;
+        target: IProductCard;
+      }>
+    ) {
+      state.my_target = {
+        current_units: payload.units,
+        target: payload.target,
+      };
+    },
+    removeTarget(state) {
+      state.my_target = undefined;
     },
   },
 });
 
-export const { setAuth, logOut } = authSlice.actions;
+export const { setAuth, logOut, setTarget, removeTarget } = authSlice.actions;
 export const appAuthReducer = authSlice.reducer;
 
 export const useAuthState = () => useAppSelector((state) => state.auth);

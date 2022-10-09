@@ -1,10 +1,11 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Sizes } from '../../../styles';
 import { Button, message, Space, Typography } from 'antd';
 import { UserCard } from '../../common/user-card';
 
 import user_mock from '../../../mocks/team/Avatar-1.jpg';
+import { useAuthState } from '../../../ducks/auth/authSlice';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -64,20 +65,36 @@ const BtnAddonText = styled('span')`
 
 interface Props {
   productTitle: string;
+  handleRemoveTarget: () => void;
+  handleSetTargetToProduct: () => void;
+  id: string;
 }
 
-export const ProductMainCard: FC<Props> = ({ productTitle }) => {
-  const [isSelectedTarget, setIsTarget] = useState<boolean>(false);
-  const [addDelete, setAddDelete] = useState<boolean>(false);
+export const ProductMainCard: FC<Props> = ({
+  productTitle,
+  handleSetTargetToProduct,
+  handleRemoveTarget,
+  id,
+}) => {
+  const { my_target } = useAuthState();
+
+  const [addDelete, setAddDelete] = useState<boolean>(
+    !!(my_target && id === my_target.target.id)
+  );
+
+  useEffect(() => {
+    setAddDelete(!!(my_target && id === my_target.target.id));
+  }, [id]);
+
   const handleSetTarget = useCallback(() => {
-    setIsTarget(true);
+    handleSetTargetToProduct();
     message.success(`Цель: ${productTitle} - установлена`).then(() => {
       setAddDelete(true);
     });
   }, []);
 
   const handleDeleteTarget = useCallback(() => {
-    setIsTarget(false);
+    handleRemoveTarget();
     setAddDelete(false);
     void message.warning(`Цель: ${productTitle} - удалена`);
   }, []);
@@ -114,7 +131,7 @@ export const ProductMainCard: FC<Props> = ({ productTitle }) => {
           </BtnAddonText>
         </BtnFirstLine>
         <BtnFirstLine>
-          {isSelectedTarget ? (
+          {my_target && id === my_target.target.id ? (
             <Button type={'primary'} ghost disabled>
               Товар установлен как текущая цель
             </Button>

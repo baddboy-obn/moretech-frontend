@@ -27,6 +27,7 @@ import nft_5_2 from '../../../mocks/nft-examples/5_2.png';
 import nft_5_3 from '../../../mocks/nft-examples/5_3.png';
 import nft_5_4 from '../../../mocks/nft-examples/5_4.png';
 import { useCurrentTheme } from '../../../utils/services/ThemeService';
+import { useAuthState } from '../../../ducks/auth/authSlice';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -246,6 +247,7 @@ export const NFTList: IProductCard[] = [
 
 export const Products: FC = () => {
   const theme = useCurrentTheme();
+  const { my_target } = useAuthState();
 
   const tabItems = [
     {
@@ -259,6 +261,7 @@ export const Products: FC = () => {
               link={`${nft.link}/${nft.id}`}
               key={nft.id}
               theme={theme}
+              selectedId={my_target?.target.id}
             />
           ))}
         </ProductsWrapper>

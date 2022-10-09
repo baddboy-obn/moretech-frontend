@@ -4,6 +4,7 @@ import { Sizes } from '../../../styles';
 import { Title } from './ProductMainCard';
 import { IProductCard, ProductCard } from '../main/product-card';
 import { useCurrentTheme } from '../../../utils/services/ThemeService';
+import { useAuthState } from '../../../ducks/auth/authSlice';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -25,7 +26,9 @@ interface Props {
 }
 
 export const MoreFromCollection: FC<Props> = ({ otherProducts }) => {
+  const { my_target } = useAuthState();
   const theme = useCurrentTheme();
+
   return (
     <Wrapper>
       <Title>Так же в этой коллекции</Title>
@@ -37,6 +40,7 @@ export const MoreFromCollection: FC<Props> = ({ otherProducts }) => {
             link={`${el.link}/${el.id}`}
             theme={theme}
             smallWrapper
+            selectedId={my_target?.target.id}
           />
         ))}
       </ProductsWrapper>

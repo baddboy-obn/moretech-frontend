@@ -15,7 +15,8 @@ const Wrapper = styled('div')`
 `;
 
 interface Props extends IProductCard {
-  anyS?: string;
+  handleSetTargetToProduct: () => void;
+  handleRemoveTarget: () => void;
 }
 
 const HeadWrapper = styled('div')`
@@ -43,7 +44,13 @@ const RarityMarker = styled('span')<{ rarity: Rarity }>`
       : theme.COLORS.WHITE.C100};
 `;
 
-export const RightSide: FC<Props> = ({ rarity, title }) => {
+export const RightSide: FC<Props> = ({
+  rarity,
+  title,
+  handleRemoveTarget,
+  handleSetTargetToProduct,
+  id,
+}) => {
   return (
     <Wrapper>
       <HeadWrapper>
@@ -52,7 +59,12 @@ export const RightSide: FC<Props> = ({ rarity, title }) => {
           <RarityMarker rarity={rarity}>{rarityToText(rarity)}</RarityMarker>
         )}
       </HeadWrapper>
-      <ProductMainCard productTitle={title} />
+      <ProductMainCard
+        productTitle={title}
+        handleRemoveTarget={handleRemoveTarget}
+        handleSetTargetToProduct={handleSetTargetToProduct}
+        id={id}
+      />
       <LastOrders />
       <PriceDynamic />
     </Wrapper>

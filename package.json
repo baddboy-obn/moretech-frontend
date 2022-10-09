@@ -9,6 +9,7 @@
   "scripts": {
     "start": "cross-env SERVE=true webpack serve",
     "build": "webpack",
+    "prebuild": "rimraf dist",
     "build-prod": "webpack --mode=production",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },

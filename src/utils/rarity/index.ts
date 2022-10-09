@@ -14,6 +14,6 @@ export const rarityToText = (rarity: Rarity) => {
     case Rarity.VERY_RARE:
       return 'Крайне редкая';
     case Rarity.LEGENDARY:
-      return 'Легегдарная';
+      return 'Легендарная';
   }
 };

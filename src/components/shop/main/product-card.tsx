@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Sizes } from '../../../styles';
 import { Rarity, rarityToText } from '../../../utils/rarity/';
-import { Image, Typography } from 'antd';
+import { Badge, Image, Typography } from 'antd';
 import { PricePane } from '../../common/balance-pane';
 import { Theme } from '@emotion/react';
 import { EyeOutlined } from '@ant-design/icons';
@@ -99,6 +99,7 @@ const ViesMarker = styled('div')`
 interface Props extends IProductCard {
   theme: Theme;
   smallWrapper?: boolean;
+  selectedId?: string;
 }
 
 export const ProductCard: FC<Props> = ({
@@ -110,9 +111,11 @@ export const ProductCard: FC<Props> = ({
   theme,
   views,
   link,
+  id,
   smallWrapper,
+  selectedId,
 }) => {
-  return (
+  const Content = (
     <Wrapper to={link} smallWrapper={smallWrapper}>
       <ImageStyled preview={false} src={imageUrl} />
       <DescriptionWrapper>
@@ -160,4 +163,21 @@ export const ProductCard: FC<Props> = ({
       </ViesMarker>
     </Wrapper>
   );
+
+  if (selectedId === id) {
+    return (
+      <div
+        style={{
+          minWidth: '190px',
+          flexBasis: smallWrapper ? 'calc(33.3% - 9px)' : 'calc(20% - 16px)',
+        }}
+      >
+        <Badge.Ribbon color="green" text="Цель">
+          {Content}
+        </Badge.Ribbon>
+      </div>
+    );
+  } else {
+    return <>{Content}</>;
+  }
 };
