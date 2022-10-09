@@ -32,11 +32,12 @@ export const ListPaneItem: FC<IPaneListType> = ({
   text,
   notificationsCount,
   description,
+  onClick,
 }) => {
   return (
     <>
       {link ? (
-        <WrapperLink to={link}>
+        <WrapperLink to={link} onClick={onClick}>
           <RightSide>
             <Avatar src={image} />
             <div
@@ -72,7 +73,7 @@ export const ListPaneItem: FC<IPaneListType> = ({
           </Badge>
         </WrapperLink>
       ) : (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
           <RightSide>
             <Avatar src={image} />
             <div

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { MainInfo } from '../components/profile/main-info';
 import styled from '@emotion/styled';
 import { AchievementsPane } from '../components/profile/achievements-pane';
@@ -11,8 +11,18 @@ const Wrapper = styled('div')`
 `;
 
 export const Home: FC = () => {
+  const [sendCongratsModal, setSendCongratsModal] = useState(false);
+
+  const handleOpenCongratsModal = useCallback(() => {
+    setSendCongratsModal(true);
+  }, []);
+
   return (
-    <ProfileLayout>
+    <ProfileLayout
+      visible={sendCongratsModal}
+      setVisible={setSendCongratsModal}
+      handleOpenCongratsModal={handleOpenCongratsModal}
+    >
       <Wrapper>
         <MainInfo />
         <AchievementsPane />

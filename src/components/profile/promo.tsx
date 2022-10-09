@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Sizes } from '../../styles';
-import { Typography } from 'antd';
 
-import promoBgImage from '../../resources/promo-bg.png';
+import promoBgImage from '../../resources/promo_1.jpg';
 
 const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
@@ -53,15 +52,6 @@ export const Promo: FC = () => {
   return (
     <Wrapper>
       <PromoBg />
-      <Typography.Title className={'promo-text'} level={2}>
-        Получай
-      </Typography.Title>
-      <Typography.Title className={'promo-text'} level={2}>
-        Больше
-      </Typography.Title>
-      <Typography.Title className={'promo-text'} level={5}>
-        новая бонусная программа
-      </Typography.Title>
     </Wrapper>
   );
 };

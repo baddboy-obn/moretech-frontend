@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
   Button,
   PageHeader,
@@ -16,12 +16,7 @@ import { MenuInfo } from 'rc-menu/lib/interface';
 import { BalancePopover } from '../common/balance-popover';
 import { useAppDispatch } from '../../ducks';
 import { logOut, useAuthState } from '../../ducks/auth/authSlice';
-import {
-  setNeedWalletUpdate,
-  useMyBalance,
-} from '../../ducks/profile/my-balance/myBalanceSlice';
-import { webAPI } from '../../api';
-import { IUserKey } from '../../api/person';
+import { setNeedWalletUpdate } from '../../ducks/profile/my-balance/myBalanceSlice';
 import { SendUnits } from '../../modals/send-units';
 
 import logo from '../../mocks/images/vtb_new_logo_2018 1.png';
@@ -42,8 +37,7 @@ const BalanceWrapper = styled('div')`
 
 export const Header: FC = () => {
   const dispatch = useAppDispatch();
-  const balanceData = useMyBalance();
-  const { data, authed, person, publicKey, type } = useAuthState();
+  const { data, authed, person } = useAuthState();
 
   const [sendUnitsVisible, setSendUnitsVisible] = useState(false);
   const [balanceShow, setBalanceShow] = useState(false);
@@ -69,21 +63,6 @@ export const Header: FC = () => {
     ),
     [handleMenuClick]
   );
-
-  const handleFetchWallet = useCallback(
-    async (userType: IUserKey, userPublicKey: string) => {
-      return webAPI.personMethods.getWallet(userType, userPublicKey);
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (authed && type && publicKey && !balanceData.loaded) {
-      // handleFetchWallet(type, publicKey).then((r) => {
-      //   dispatch(setWalletData(r.data));
-      // });
-    }
-  }, [authed, type, publicKey, balanceData.loaded]);
 
   const handleTransfer = useCallback(() => {
     setSendUnitsVisible(true);

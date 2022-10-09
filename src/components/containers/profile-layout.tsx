@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import { Header } from '../layout/header';
 import { Button, Layout } from 'antd';
@@ -11,6 +11,7 @@ import { Paths } from '../../utils/routes/paths';
 import { Promo } from '../profile/promo';
 import { PlusOutlined } from '@ant-design/icons';
 import { SendCongrats } from '../../modals/send-congrats';
+import { LeaguePane } from '../profile/league-pane';
 
 export const AppWrapper = styled(Layout)`
   width: 100vw;
@@ -25,10 +26,14 @@ const SiderStyled = styled(Sider)`
   background-color: transparent;
 `;
 
-export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
+export const ProfileLayout: FC<
+  PropsWithChildren<{
+    visible: boolean;
+    setVisible: (state: boolean) => void;
+    handleOpenCongratsModal: () => void;
+  }>
+> = ({ children, visible, setVisible, handleOpenCongratsModal }) => {
   const theme = useCurrentTheme();
-
-  const [visible, setVisible] = useState(false);
 
   return (
     <AppWrapper>
@@ -46,8 +51,7 @@ export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
       >
         <SiderStyled width={330}>
           <ProfileSideCard />
-          <FriendsTab />
-          <SayThanks count={12} />
+          <LeaguePane />
           <ListPane
             title={'Гильдии и группы'}
             btnText={'Все'}
@@ -97,6 +101,7 @@ export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
                 image: 'https://joeschmoe.io/api/v1/random',
                 link: Paths.BASE,
                 description: '3 сотрудника',
+                onClick: handleOpenCongratsModal,
               },
               {
                 text: 'Доброе дело',
@@ -122,6 +127,8 @@ export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
               marginBottom: 24,
             }}
           />
+          <FriendsTab />
+          <SayThanks count={12} />
           <ListPane
             title={'Tech-новости'}
             btnText={'Все'}

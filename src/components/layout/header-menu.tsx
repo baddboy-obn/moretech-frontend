@@ -7,8 +7,6 @@ import { HeaderMenuItem, IMenuItem } from './header-menu-item';
 const Menu: IMenuItem[] = [
   { to: Paths.BASE, text: 'Профиль', exact: true },
   { to: Paths.SHOP, text: 'Магазин' },
-  { to: Paths.GROUPS, text: 'Гильдии' },
-  { to: Paths.NEWS, text: 'Новости' },
 ];
 
 export const HeaderMenu: FC = () => {

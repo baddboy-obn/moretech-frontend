@@ -2,7 +2,6 @@ import React, { CSSProperties, FC } from 'react';
 import styled from '@emotion/styled';
 import { Sizes } from '../../styles';
 import { Button, Typography } from 'antd';
-import { NavLink } from 'react-router-dom';
 import { Paths } from '../../utils/routes/paths';
 import { useCurrentTheme } from '../../utils/services/ThemeService';
 import { ListPaneItem } from './list-pane-item';
@@ -11,6 +10,7 @@ export type IPaneListType<T = unknown> = {
   image: string;
   text: string;
   link?: string;
+  onClick?: () => void;
   notificationsCount?: number;
   description?: string;
 } & T;
@@ -60,7 +60,7 @@ export const ListPane: FC<Props> = ({
       <Header>
         <Typography.Title level={5}>{title}</Typography.Title>
         {btnUrl && btnText && (
-          <NavLink to={btnUrl}>
+          <>
             <Button
               type={'text'}
               style={{
@@ -69,7 +69,7 @@ export const ListPane: FC<Props> = ({
             >
               {btnText}
             </Button>
-          </NavLink>
+          </>
         )}
       </Header>
       <ListWrapper>
@@ -80,6 +80,7 @@ export const ListPane: FC<Props> = ({
             link={listItem.link}
             image={listItem.image}
             notificationsCount={listItem.notificationsCount}
+            onClick={listItem.onClick}
             key={i}
           />
         ))}

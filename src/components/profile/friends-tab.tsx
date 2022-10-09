@@ -1,16 +1,11 @@
 import React, { FC } from 'react';
 import { Avatar, Space, Typography } from 'antd';
-import {
-  AntDesignOutlined,
-  RightOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { Sizes } from '../../styles';
-import { NavLink } from 'react-router-dom';
-import { Paths } from '../../utils/routes/paths';
 import styled from '@emotion/styled';
+import { useAuthState } from '../../ducks/auth/authSlice';
 
-const Wrapper = styled(NavLink)`
+const Wrapper = styled('div')`
   margin: 24px 0;
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
   width: 100%;
@@ -23,21 +18,15 @@ const Wrapper = styled(NavLink)`
 `;
 
 export const FriendsTab: FC = () => {
+  const { otherUsers } = useAuthState();
   return (
-    <Wrapper to={Paths.FRIENDS}>
+    <Wrapper>
       <Typography.Title level={5}>Мои друзья</Typography.Title>
       <Space size={[10, 0]} direction={'horizontal'}>
         <Avatar.Group>
-          <Avatar src="https://joeschmoe.io/api/v1/random" />
-          <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-          <Avatar
-            style={{ backgroundColor: '#87d068' }}
-            icon={<UserOutlined />}
-          />
-          <Avatar
-            style={{ backgroundColor: '#1890ff' }}
-            icon={<AntDesignOutlined />}
-          />
+          {otherUsers.map((el) => (
+            <Avatar src={el.personal.avatar} key={el.publicKey} />
+          ))}
         </Avatar.Group>
         <RightOutlined />
       </Space>

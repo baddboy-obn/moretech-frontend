@@ -117,7 +117,7 @@ export const ProductCard: FC<Props> = ({
 }) => {
   const Content = (
     <Wrapper to={link} smallWrapper={smallWrapper}>
-      <ImageStyled preview={false} src={imageUrl} />
+      <ImageStyled loading={'lazy'} preview={false} src={imageUrl} />
       <DescriptionWrapper>
         <Name>{title}</Name>
         <div

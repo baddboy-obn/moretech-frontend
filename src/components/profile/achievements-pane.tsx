@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 import { Space, Typography, Image } from 'antd';
 import { Sizes } from '../../styles';
 
+import achieve_1 from '../../resources/ach_ex_1.png';
+import achieve_2 from '../../resources/ach_ex_2.png';
+import achieve_3 from '../../resources/ach_ex_3.png';
+
 const Wrapper = styled(Space)`
   background-color: ${({ theme }) => theme.COLORS.WHITE.C100};
   padding: 24px;
@@ -30,30 +34,9 @@ export const AchievementsPane: FC = () => {
         Награды
       </Typography.Title>
       <Space size={[12, 12]} wrap>
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
-        <ImageStyled
-          preview={false}
-          src={'https://joeschmoe.io/api/v1/random'}
-        />
+        <ImageStyled preview={false} src={achieve_1} />
+        <ImageStyled preview={false} src={achieve_2} />
+        <ImageStyled preview={false} src={achieve_3} />
       </Space>
     </Wrapper>
   );
