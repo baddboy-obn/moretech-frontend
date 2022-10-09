@@ -1,20 +1,7 @@
 import React, { FC, useCallback } from 'react';
-import {
-  Button,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Radio,
-  Select,
-  Slider,
-  Upload,
-} from 'antd';
+import { Form, InputNumber, Modal, Radio, Select } from 'antd';
 import { useAuthState } from '../../ducks/auth/authSlice';
 import { UserCard } from '../../components/common/user-card';
-import { UploadOutlined } from '@ant-design/icons';
 import moment, { Moment } from 'moment';
 
 const { Option } = Select;
@@ -51,8 +38,8 @@ export const SendUnits: FC<Props> = ({ visible, setVisible }) => {
     <Modal
       open={visible}
       onCancel={handleCancel}
-      title={'Новая мотивация'}
-      okText={'Отправить мотивацию'}
+      title={'Перевод'}
+      okText={'Отправить'}
       cancelText={'В другой раз'}
       onOk={form.submit}
       destroyOnClose
@@ -67,23 +54,6 @@ export const SendUnits: FC<Props> = ({ visible, setVisible }) => {
           date: moment(),
         }}
       >
-        <Form.Item
-          name={'name'}
-          label={'Название мотивации'}
-          required
-          rules={[
-            {
-              required: true,
-              message: 'Поле обязательно для заполнения',
-            },
-          ]}
-        >
-          <Input
-            placeholder={'Не более 32 символов'}
-            maxLength={32}
-            showCount
-          />
-        </Form.Item>
         <Form.Item name={'type'} label={'Тип получателя'}>
           <Radio.Group>
             <Radio value={'own'}>Личная</Radio>
@@ -112,59 +82,9 @@ export const SendUnits: FC<Props> = ({ visible, setVisible }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name={'motivation_type'} required label={'Тип мотивации'}>
-          <Checkbox.Group>
-            <div>
-              <Checkbox value={'nft'}>NFT</Checkbox>
-              <Form.Item
-                style={{
-                  width: 350,
-                  paddingLeft: 80,
-                }}
-                name={'rarity'}
-              >
-                <Slider
-                  step={null}
-                  tooltipVisible={false}
-                  marks={{
-                    0: 'Обычная',
-                    33: 'Редкая',
-                    66: 'Крайне редкая',
-                    100: 'Легендарная',
-                  }}
-                />
-              </Form.Item>
-            </div>
-            <div>
-              <Checkbox value={'achieve'}>Ачивка</Checkbox>
-              <Form.Item
-                style={{
-                  paddingLeft: 24,
-                  paddingTop: 6,
-                }}
-                name={'achieve_file'}
-              >
-                <Upload>
-                  <Button icon={<UploadOutlined />}>Загрузить ачивку</Button>
-                </Upload>
-              </Form.Item>
-            </div>
-            <div>
-              <Checkbox value={'units'}>Валюта</Checkbox>
-              <Form.Item
-                style={{
-                  paddingLeft: 24,
-                  paddingTop: 6,
-                }}
-                name={'units_count'}
-              >
-                <InputNumber placeholder={'Сумма'} min={1} />
-              </Form.Item>
-            </div>
-          </Checkbox.Group>
-        </Form.Item>
         <Form.Item
-          name={'date'}
+          name={'units_count'}
+          label={'Сумма'}
           required
           rules={[
             {
@@ -172,9 +92,8 @@ export const SendUnits: FC<Props> = ({ visible, setVisible }) => {
               message: 'Поле обязательно для заполнения',
             },
           ]}
-          label={'Дата начисления'}
         >
-          <DatePicker placeholder={'Выберите'} format={'DD.MM.YYYY'} />
+          <InputNumber placeholder={'Введите'} min={1} />
         </Form.Item>
       </Form>
     </Modal>

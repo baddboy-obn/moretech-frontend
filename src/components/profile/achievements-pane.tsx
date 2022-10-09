@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Space, Typography, Image } from 'antd';
+import { Space, Typography, Image, Tooltip } from 'antd';
 import { Sizes } from '../../styles';
 
 import achieve_1 from '../../resources/ach_ex_1.png';
@@ -34,9 +34,15 @@ export const AchievementsPane: FC = () => {
         Награды
       </Typography.Title>
       <Space size={[12, 12]} wrap>
-        <ImageStyled preview={false} src={achieve_1} />
-        <ImageStyled preview={false} src={achieve_2} />
-        <ImageStyled preview={false} src={achieve_3} />
+        <Tooltip title={'Ментор месяца - бронзовый уровень'}>
+          <ImageStyled preview={false} src={achieve_1} />
+        </Tooltip>
+        <Tooltip title={'Запуск внутреннего портала'}>
+          <ImageStyled preview={false} src={achieve_2} />
+        </Tooltip>
+        <Tooltip title={'Создатель гильдии'}>
+          <ImageStyled preview={false} src={achieve_3} />
+        </Tooltip>
       </Space>
     </Wrapper>
   );

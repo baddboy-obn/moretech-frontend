@@ -25,7 +25,7 @@ export const CoursesPane: FC = () => {
         }}
         level={4}
       >
-        Обязательные курсы
+        Образовательные курсы
       </Typography.Title>
       <Space wrap size={[12, 12]} direction={'horizontal'}>
         <NavLink to={Paths.BASE}>
