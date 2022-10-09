@@ -1,6 +1,7 @@
 import React, { FC, Fragment, PropsWithChildren, useEffect } from 'react';
 import { ThemeService } from './ThemeService';
 import moment from 'moment';
+import { AuthService } from './AuthService';
 
 export const AppService: FC<PropsWithChildren<{}>> = ({ children }) => {
   useEffect(() => {
@@ -9,7 +10,9 @@ export const AppService: FC<PropsWithChildren<{}>> = ({ children }) => {
 
   return (
     <Fragment>
-      <ThemeService>{children}</ThemeService>
+      <AuthService>
+        <ThemeService>{children}</ThemeService>
+      </AuthService>
     </Fragment>
   );
 };

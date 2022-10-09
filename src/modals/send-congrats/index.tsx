@@ -58,7 +58,7 @@ export const SendCongrats: FC<Props> = ({ visible, setVisible }) => {
 
   return (
     <Modal
-      visible={visible}
+      open={visible}
       onCancel={handleCancel}
       title={
         <>

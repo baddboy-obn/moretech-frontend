@@ -40,6 +40,7 @@ export const ProfileLayout: FC<PropsWithChildren> = ({ children }) => {
           maxWidth: 1600,
           margin: '0 auto',
           width: '100%',
+          overflowY: 'auto',
         }}
         hasSider
       >

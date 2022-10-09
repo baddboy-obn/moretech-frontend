@@ -41,7 +41,7 @@ const ProductsWrapper = styled('div')`
   flex-wrap: wrap;
 `;
 
-const NFTList: IProductCard[] = [
+export const NFTList: IProductCard[] = [
   {
     imageUrl: nft_1_1,
     title: 'Holiday Monster #1_1',
@@ -254,7 +254,12 @@ export const Products: FC = () => {
       children: (
         <ProductsWrapper>
           {NFTList.map((nft) => (
-            <ProductCard {...nft} key={nft.id} theme={theme} />
+            <ProductCard
+              {...nft}
+              link={`${nft.link}/${nft.id}`}
+              key={nft.id}
+              theme={theme}
+            />
           ))}
         </ProductsWrapper>
       ),

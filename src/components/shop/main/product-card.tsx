@@ -6,8 +6,9 @@ import { Image, Typography } from 'antd';
 import { PricePane } from '../../common/balance-pane';
 import { Theme } from '@emotion/react';
 import { EyeOutlined } from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
 
-const getColorByRarity: (rarity: Rarity, theme: Theme) => string = (
+export const getColorByRarity: (rarity: Rarity, theme: Theme) => string = (
   rarity: Rarity,
   theme: Theme
 ) => {
@@ -23,14 +24,15 @@ const getColorByRarity: (rarity: Rarity, theme: Theme) => string = (
   }
 };
 
-const Wrapper = styled('div')`
+const Wrapper = styled(NavLink)<{ smallWrapper?: boolean }>`
   display: flex;
   position: relative;
   border: 1px solid ${({ theme }) => theme.COLORS.WHITE.C300};
   border-radius: ${Sizes.BORDER_RADIUS};
   height: 245px;
   min-width: 190px;
-  flex-basis: calc(20% - 16px);
+  flex-basis: ${({ smallWrapper }) =>
+    smallWrapper ? 'calc(33.3% - 9px)' : 'calc(20% - 16px)'};
   overflow: hidden;
 `;
 
@@ -96,6 +98,7 @@ const ViesMarker = styled('div')`
 
 interface Props extends IProductCard {
   theme: Theme;
+  smallWrapper?: boolean;
 }
 
 export const ProductCard: FC<Props> = ({
@@ -106,9 +109,11 @@ export const ProductCard: FC<Props> = ({
   title,
   theme,
   views,
+  link,
+  smallWrapper,
 }) => {
   return (
-    <Wrapper>
+    <Wrapper to={link} smallWrapper={smallWrapper}>
       <ImageStyled preview={false} src={imageUrl} />
       <DescriptionWrapper>
         <Name>{title}</Name>
